@@ -1,0 +1,27 @@
+{
+  "name": "swf-inflater",
+  "version": "1.0.0",
+  "description": "Change swf type to FWS.",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc -watch",
+    "test": "jest",
+    "test-watch": "jest --watch"
+  },
+  "author": "wan0123 <minene.work@gmail.com> (https://github.com/wan0123)",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/jest": "^26.0.8",
+    "@types/node": "^14.0.27",
+    "jest": "^26.2.1",
+    "ts-jest": "^26.1.4",
+    "ts-loader": "^8.0.1",
+    "typescript": "^3.9.7",
+    "webpack": "^4.44.1",
+    "webpack-cli": "^3.3.12"
+  },
+  "dependencies": {
+    "lzma": "^2.3.2"
+  }
+}
