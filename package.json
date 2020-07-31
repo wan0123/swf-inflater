@@ -2,7 +2,7 @@
   "name": "swf-inflater",
   "version": "1.0.0",
   "description": "Change swf type to FWS.",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
     "build": "tsc",
     "watch": "tsc -watch",
