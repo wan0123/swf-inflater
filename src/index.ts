@@ -4,23 +4,35 @@ const lzma = require( 'lzma' );
 
 
 /**
- * swfの形式をFWSにする
- * @param targetSwf 
+ * buffer swfをFWSに展開
+ * @param targetSwfBuff 
+ * @param callback 
  */
-export function Inflater( targetSwf: string ) { 
-	return new Promise( async ( resolve: ( v: Buffer )=>void, reject:( v: string )=>void ) => {
-		let swfBuff 	= await fs.promises.readFile( targetSwf );
-		let swfInfBuff 	= await InflaterBuff( swfBuff );
+export function InflaterBuff( targetSwfBuff: Buffer, callback: ( buffer: Buffer ) => Buffer ) { 
 
-		resolve( swfInfBuff );
-	})
+	let swfInfBuff 	= InflaterBuffAsync( targetSwfBuff );
+	swfInfBuff.then( callback );
+	
 }
 
 /**
- * swfの形式をFWSにする
+ * swf file からFWSに展開
+ * @param targetSwf 
+ * @param callback 
+ */
+export function Inflater( targetSwf: string, callback: ( buffer: Buffer ) => Buffer ) { 
+
+	let swfBuff 	= fs.readFileSync( targetSwf );
+	InflaterBuff( swfBuff, callback );
+
+}
+
+
+/**
+ * async版 buffer swfをFWSに展開
  * @param {*} targetSwfBin 
  */
-export function InflaterBuff( targetSwfBin: Buffer ) {
+export function InflaterBuffAsync( targetSwfBin: Buffer ) {
 	return new Promise( async ( resolve: ( v: Buffer )=>void, reject:( v: string )=>void ) => {
 		
 		let swfVarsion 		= targetSwfBin[3];
@@ -81,6 +93,21 @@ export function InflaterBuff( targetSwfBin: Buffer ) {
 		// await fs.writeFile( swfOutputPath, outputSwfBytes );
 		resolve( outputSwfBytes );
 	});
+}
+
+
+
+/**
+ * Async版 swf file からFWSに展開
+ * @param targetSwf 
+ */
+export function InflaterAsync( targetSwf: string ) { 
+	return new Promise( async ( resolve: ( v: Buffer )=>void, reject:( v: string )=>void ) => {
+		let swfBuff 	= await fs.promises.readFile( targetSwf );
+		let swfInfBuff 	= await InflaterBuffAsync( swfBuff );
+
+		resolve( swfInfBuff );
+	})
 }
 
 /**
